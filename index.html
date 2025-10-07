@@ -14,7 +14,7 @@
             const response = await fetch('https://api.vimeo.com/me?fields=name', {
                 method: 'PATCH',
                 headers: {
-                    'Authorization': 'Bearer YOUR_JWT_TOKEN_HERE',  // যদি JWT manually দরকার (dev tools থেকে copy), নাহলে omit—cookie auto যাবে
+                    'Authorization': 'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NTk4NTMxNjAsInVzZXJfaWQiOjI0ODI1NDA0NywiYXBwX2lkIjo1ODQ3OSwic2NvcGVzIjoicHVibGljIGludGVyYWN0IHByaXZhdGUgdXBsb2FkIGNyZWF0ZSBlZGl0IGRlbGV0ZSBlbWFpbCBzdGF0cyB2aWRlb19maWxlcyIsInRlYW1fdXNlcl9pZCI6bnVsbCwianRpIjoiYzhkNWUxZTYtMTk0ZS00NGFiLTk5NzMtZTdlZjc4ZTNkYTNiIiwic2giOiJjOWJmYjczMmQzYjEyNGI2NGIwNWM3OTBjZDYxMjhmNjdhZjA3OTVmZDcyMzBlNGQ1NWZhZGU1MDllMjQ2ODU3In0.T9cYDypjEKwAQcZi_4u9Rz0MX34ymyHh90tGdJKNfTA',  // যদি JWT manually দরকার (dev tools থেকে copy), নাহলে omit—cookie auto যাবে
                     'Content-Type': 'application/json',
                     'Accept': 'application/vnd.vimeo.*; version=3.4.2'
                 },
